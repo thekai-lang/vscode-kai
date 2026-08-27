@@ -1,6 +1,6 @@
 {
   "name": "kai",
-  "displayName": "Kai Language Support",
+  "displayName": "Kai (kai-lang)",
   "description": "Language support for the Kai programming language: syntax highlighting (TextMate grammar matching the tree-sitter-kai grammar), language configuration, and file icons.",
   "version": "0.1.0",
   "publisher": "kai-lang",
