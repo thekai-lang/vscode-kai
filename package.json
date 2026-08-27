@@ -21,7 +21,7 @@
     "Programming Languages",
     "Themes"
   ],
-  "icon": "icons/kai.svg",
+  "icon": "images/icon.png",
   "contributes": {
     "languages": [
       {

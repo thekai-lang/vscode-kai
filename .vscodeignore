@@ -1,7 +1,8 @@
 .vscodeignore
-**/*.png
-**/*.md
 !.vscode/**
 **/.gitignore
 **/.editorconfig
 **/package-lock.json
+**/.github/**
+**/.vscode-test/**
+**/out/**
