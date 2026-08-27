@@ -1,0 +1,14 @@
+{
+  "iconDefinitions": {
+    "_kai": {
+      "iconPath": "./icons/kai.svg"
+    }
+  },
+  "fileExtensions": {
+    "kai": "_kai"
+  },
+  "fileNames": {},
+  "languageIds": {
+    "kai": "_kai"
+  }
+}

@@ -1,0 +1,7 @@
+.vscodeignore
+**/*.png
+**/*.md
+!.vscode/**
+**/.gitignore
+**/.editorconfig
+**/package-lock.json

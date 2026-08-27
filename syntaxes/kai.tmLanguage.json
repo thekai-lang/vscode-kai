@@ -1,0 +1,231 @@
+{
+  "name": "Kai",
+  "scopeName": "source.kai",
+  "comment": "TextMate grammar for the Kai programming language. Mirrors the tree-sitter grammar (grammar.js) and queries/highlights.scm captures.",
+  "patterns": [
+    { "include": "#comment" },
+    { "include": "#string" },
+    { "include": "#modifier" },
+    { "include": "#variable-declaration" },
+    { "include": "#use-declaration" },
+    { "include": "#type-declaration" },
+    { "include": "#function-declaration" },
+    { "include": "#duration" },
+    { "include": "#number" },
+    { "include": "#temporal-modifier" },
+    { "include": "#constants" },
+    { "include": "#builtin-constructors" },
+    { "include": "#builtin-types" },
+    { "include": "#keywords" },
+    { "include": "#effects" },
+    { "include": "#parameter" },
+    { "include": "#return-type" },
+    { "include": "#type-name-in-use" },
+    { "include": "#property" },
+    { "include": "#method-call" },
+    { "include": "#call" },
+    { "include": "#field-access" },
+    { "include": "#operators" },
+    { "include": "#punctuation" },
+    { "include": "#identifier" }
+  ],
+  "repository": {
+    "comment": {
+      "match": "//.*$",
+      "name": "comment.line.double-slash.kai"
+    },
+    "string": {
+      "name": "string.quoted.double.kai",
+      "begin": "\"",
+      "end": "\"",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.string.begin.kai" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.string.end.kai" }
+      },
+      "patterns": [
+        {
+          "match": "\\\\[nrt0\\\\\"]",
+          "name": "constant.character.escape.kai"
+        }
+      ]
+    },
+    "modifier": {
+      "match": "\\b(public)\\b",
+      "name": "storage.modifier.kai"
+    },
+    "variable-declaration": {
+      "match": "\\b(let|var)\\s+([A-Za-z_][A-Za-z0-9_]*)\\b",
+      "captures": {
+        "1": { "name": "keyword.control.kai" },
+        "2": { "name": "variable.other.kai" }
+      }
+    },
+    "use-declaration": {
+      "begin": "\\b(use)\\b",
+      "beginCaptures": {
+        "1": { "name": "keyword.control.import.kai" }
+      },
+      "end": ";",
+      "endCaptures": {
+        "0": { "name": "punctuation.separator.kai" }
+      },
+      "patterns": [
+        { "include": "#comment" },
+        {
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b",
+          "name": "entity.name.namespace.kai"
+        },
+        {
+          "match": "\\.",
+          "name": "punctuation.separator.kai"
+        }
+      ]
+    },
+    "type-declaration": {
+      "match": "\\b(type)\\s+([A-Za-z_][A-Za-z0-9_]*)\\b",
+      "captures": {
+        "1": { "name": "keyword.control.kai" },
+        "2": { "name": "entity.name.type.kai" }
+      }
+    },
+    "function-declaration": {
+      "match": "\\b(fn)\\s+([A-Za-z_][A-Za-z0-9_]*)\\b",
+      "captures": {
+        "1": { "name": "storage.type.function.kai" },
+        "2": { "name": "entity.name.function.kai" }
+      }
+    },
+    "duration": {
+      "match": "\\b(\\d+)(ms|s|m|h|d)\\b",
+      "captures": {
+        "1": { "name": "constant.numeric.integer.kai" },
+        "2": { "name": "keyword.other.unit.kai" }
+      }
+    },
+    "number": {
+      "patterns": [
+        {
+          "match": "\\b\\d+\\.\\d+\\b",
+          "name": "constant.numeric.float.kai"
+        },
+        {
+          "match": "\\b\\d+\\b",
+          "name": "constant.numeric.integer.kai"
+        }
+      ]
+    },
+    "temporal-modifier": {
+      "match": "(?<![\\w])@(?:local|wallclock)\\b",
+      "name": "support.function.kai"
+    },
+    "constants": {
+      "match": "\\b(true|false|None)\\b",
+      "name": "constant.language.kai"
+    },
+    "builtin-constructors": {
+      "patterns": [
+        {
+          "match": "\\b(Result)\\b",
+          "name": "support.class.kai"
+        },
+        {
+          "match": "\\b(Some|Ok|Err)\\b",
+          "name": "keyword.other.constructor.kai"
+        }
+      ]
+    },
+    "builtin-types": {
+      "match": "\\b(int32|int64|float64|bool|unit|string|int|float)\\b",
+      "name": "support.type.primitive.kai"
+    },
+    "keywords": {
+      "match": "\\b(let|var|return|if|else|for|in|while|catch|require|observe|effects|reversible|compensate|type|fn)\\b",
+      "name": "keyword.control.kai"
+    },
+    "effects": {
+      "match": "\\bescapes\\-local\\-context\\b",
+      "name": "keyword.control.kai"
+    },
+    "parameter": {
+      "match": "(?<=[(,])\\s*(mut\\s+)?([A-Za-z_][A-Za-z0-9_]*)(\\s*:)(?!:)",
+      "captures": {
+        "1": { "name": "storage.modifier.kai" },
+        "2": { "name": "variable.parameter.kai" },
+        "3": { "name": "punctuation.separator.kai" }
+      }
+    },
+    "return-type": {
+      "match": "->\\s*([A-Z][A-Za-z0-9_]*)\\b",
+      "captures": {
+        "0": { "name": "keyword.operator.kai" },
+        "1": { "name": "support.type.kai" }
+      }
+    },
+    "type-name-in-use": {
+      "match": "(?<=:)\\s*((?!None\\b|Result\\b|Some\\b|Ok\\b|Err\\b|true\\b|false\\b)[A-Z][A-Za-z0-9_]*)\\b",
+      "captures": {
+        "1": { "name": "support.type.kai" }
+      }
+    },
+    "property": {
+      "match": "\\b([A-Za-z_][A-Za-z0-9_]*)(\\s*:)(?!:)",
+      "captures": {
+        "1": { "name": "variable.other.property.kai" },
+        "2": { "name": "punctuation.separator.kai" }
+      }
+    },
+    "method-call": {
+      "match": "(\\.)\\s*([A-Za-z_][A-Za-z0-9_]*)\\s*(?=\\()",
+      "captures": {
+        "1": { "name": "punctuation.separator.kai" },
+        "2": { "name": "support.function.kai" }
+      }
+    },
+    "call": {
+      "match": "\\b([A-Za-z_][A-Za-z0-9_]*)\\s*(?=\\()",
+      "captures": {
+        "1": { "name": "support.function.kai" }
+      }
+    },
+    "field-access": {
+      "match": "(\\.)\\s*([A-Za-z_][A-Za-z0-9_]*)\\b",
+      "captures": {
+        "1": { "name": "punctuation.separator.kai" },
+        "2": { "name": "variable.other.property.kai" }
+      }
+    },
+    "operators": {
+      "patterns": [
+        { "match": "\\+=", "name": "keyword.operator.assignment.kai" },
+        { "match": "-=", "name": "keyword.operator.assignment.kai" },
+        { "match": "\\*=", "name": "keyword.operator.assignment.kai" },
+        { "match": "/=", "name": "keyword.operator.assignment.kai" },
+        { "match": "==", "name": "keyword.operator.comparison.kai" },
+        { "match": "!=", "name": "keyword.operator.comparison.kai" },
+        { "match": "<=", "name": "keyword.operator.comparison.kai" },
+        { "match": ">=", "name": "keyword.operator.comparison.kai" },
+        { "match": "&&", "name": "keyword.operator.logical.kai" },
+        { "match": "\\|\\|", "name": "keyword.operator.logical.kai" },
+        { "match": "\\?\\?", "name": "keyword.operator.coalesce.kai" },
+        { "match": "->", "name": "keyword.operator.arrow.kai" },
+        { "match": "=", "name": "keyword.operator.assignment.kai" },
+        { "match": "[-+*/%<>=!]", "name": "keyword.operator.kai" }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        { "match": "[{}]", "name": "punctuation.definition.block.kai" },
+        { "match": "[\\[\\]]", "name": "punctuation.definition.array.kai" },
+        { "match": "[()]", "name": "punctuation.definition.group.kai" },
+        { "match": "[;:,.@]", "name": "punctuation.separator.kai" },
+        { "match": "[?_|]", "name": "punctuation.kai" }
+      ]
+    },
+    "identifier": {
+      "match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b",
+      "name": "variable.other.kai"
+    }
+  }
+}

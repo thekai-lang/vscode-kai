@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <defs>
+    <linearGradient id="kai-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A6CFF"/>
+      <stop offset="1" stop-color="#174EA6"/>
+    </linearGradient>
+  </defs>
+  <rect width="16" height="16" rx="3.5" fill="url(#kai-bg)"/>
+  <path d="M2.75 9.75 C 4 9.75, 4 7.9, 5.5 7.9 C 7 7.9, 7 9.75, 8.5 9.75 C 10 9.75, 10 7.9, 11.5 7.9 C 12.25 7.9, 12.75 8.4, 13.25 8.9"
+        fill="none" stroke="#fff" stroke-width="1.1" stroke-linecap="round"
+        opacity="0.95"/>
+  <path d="M2.75 12.35 C 4 12.35, 4 10.5, 5.5 10.5 C 7 10.5, 7 12.35, 8.5 12.35 C 10 12.35, 10 10.5, 11.5 10.5 C 12.25 10.5, 12.75 11, 13.25 11.5"
+        fill="none" stroke="#fff" stroke-width="1.1" stroke-linecap="round"
+        opacity="0.6"/>
+</svg>

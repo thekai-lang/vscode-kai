@@ -1,0 +1,61 @@
+{
+  "name": "kai",
+  "displayName": "Kai Language Support",
+  "description": "Language support for the Kai programming language: syntax highlighting (TextMate grammar matching the tree-sitter-kai grammar), language configuration, and file icons.",
+  "version": "0.1.0",
+  "publisher": "kai-lang",
+  "license": "MIT",
+  "keywords": [
+    "kai",
+    "tree-sitter",
+    "syntax highlighting"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thekai-lang/vscode-kai"
+  },
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Themes"
+  ],
+  "icon": "icons/kai.svg",
+  "contributes": {
+    "languages": [
+      {
+        "id": "kai",
+        "aliases": [
+          "Kai",
+          "kai"
+        ],
+        "extensions": [
+          ".kai"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/kai.svg",
+          "dark": "./icons/kai.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "kai",
+        "scopeName": "source.kai",
+        "path": "./syntaxes/kai.tmLanguage.json"
+      }
+    ],
+    "iconThemes": [
+      {
+        "id": "kai-icons",
+        "label": "Kai File Icons",
+        "path": "./icon-theme.json"
+      }
+    ]
+  },
+  "scripts": {
+    "package": "vsce package"
+  }
+}
