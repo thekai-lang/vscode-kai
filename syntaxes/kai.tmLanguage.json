@@ -1,7 +1,7 @@
 {
   "name": "Kai",
   "scopeName": "source.kai",
-  "comment": "TextMate grammar for the Kai programming language. Mirrors the tree-sitter grammar (grammar.js) and queries/highlights.scm captures.",
+  "comment": "TextMate grammar for the Kai programming language. Mirrors the tree-sitter grammar (grammar.js) and queries/highlights.scm captures. Aligned with EBNF grammars.ebnf v0.0.1–v0.0.11.",
   "patterns": [
     { "include": "#comment" },
     { "include": "#string" },
@@ -10,6 +10,9 @@
     { "include": "#use-declaration" },
     { "include": "#type-declaration" },
     { "include": "#function-declaration" },
+    { "include": "#result-type-args" },
+    { "include": "#struct-literal-type" },
+    { "include": "#dsl-expression" },
     { "include": "#duration" },
     { "include": "#number" },
     { "include": "#temporal-modifier" },
@@ -52,7 +55,7 @@
       ]
     },
     "modifier": {
-      "match": "\\b(public)\\b",
+      "match": "\\b(public|mut)\\b",
       "name": "storage.modifier.kai"
     },
     "variable-declaration": {
@@ -97,6 +100,49 @@
         "2": { "name": "entity.name.function.kai" }
       }
     },
+    "result-type-args": {
+      "match": "\\b(Result|Optional)\\s*<\\s*([A-Za-z_][A-Za-z0-9_]*)\\s*(?:,\\s*([A-Za-z_][A-Za-z0-9_]*)\\s*)?>",
+      "captures": {
+        "1": { "name": "support.class.kai" },
+        "2": { "name": "support.type.kai" },
+        "3": { "name": "support.type.kai" }
+      }
+    },
+    "struct-literal-type": {
+      "match": "(?<![A-Za-z0-9_])([A-Z][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*)\\s*(?=\\{)",
+      "captures": {
+        "1": { "name": "support.type.kai" }
+      }
+    },
+    "dsl-expression": {
+      "patterns": [
+        {
+          "match": "\\b(dsl)\\s+(sql|api)\\b",
+          "captures": {
+            "1": { "name": "keyword.other.dsl.kai" },
+            "2": { "name": "keyword.other.dsl-kind.kai" }
+          }
+        },
+        {
+          "match": "\\b(raw)\\b",
+          "name": "keyword.other.dsl-raw.kai"
+        },
+        {
+          "match": "\\b(v\\d+)\\b",
+          "captures": {
+            "1": { "name": "keyword.other.dsl-version.kai" }
+          }
+        },
+        {
+          "match": "\\b(GET|POST|PUT|DELETE|PATCH)\\b",
+          "name": "keyword.other.api-method.kai"
+        },
+        {
+          "match": "(?<=with\\s+)(path|query|header|body|auth)\\b",
+          "name": "keyword.other.api-with.kai"
+        }
+      ]
+    },
     "duration": {
       "match": "\\b(\\d+)(ms|s|m|h|d)\\b",
       "captures": {
@@ -117,17 +163,27 @@
       ]
     },
     "temporal-modifier": {
-      "match": "(?<![\\w])@(?:local|wallclock)\\b",
-      "name": "support.function.kai"
+      "patterns": [
+        {
+          "match": "(?<![\\w])@(local|wallclock)\\b",
+          "captures": {
+            "1": { "name": "keyword.other.temporal-modifier.kai" }
+          }
+        },
+        {
+          "match": "@(local|wallclock)\\s*\\(\\s*\\d+(?:ms|s|m|h|d)\\s*\\)",
+          "name": "storage.type.temporal.kai"
+        }
+      ]
     },
     "constants": {
-      "match": "\\b(true|false|None)\\b",
+      "match": "\\b(true|false|None|Some|Ok|Err)\\b",
       "name": "constant.language.kai"
     },
     "builtin-constructors": {
       "patterns": [
         {
-          "match": "\\b(Result)\\b",
+          "match": "\\b(Result|Optional)\\b",
           "name": "support.class.kai"
         },
         {
@@ -141,7 +197,7 @@
       "name": "support.type.primitive.kai"
     },
     "keywords": {
-      "match": "\\b(let|var|return|if|else|for|in|while|catch|require|observe|effects|reversible|compensate|type|fn)\\b",
+      "match": "\\b(let|var|return|if|else|for|in|while|catch|require|observe|effects|reversible|compensate|type|fn|use|as|public|mut|local|wallclock|dsl|sql|api|raw|with|path|query|header|body|auth|v)\\b",
       "name": "keyword.control.kai"
     },
     "effects": {
@@ -164,7 +220,7 @@
       }
     },
     "type-name-in-use": {
-      "match": "(?<=:)\\s*((?!None\\b|Result\\b|Some\\b|Ok\\b|Err\\b|true\\b|false\\b)[A-Z][A-Za-z0-9_]*)\\b",
+      "match": "(?<=:)\\s*((?!None\\b|Result\\b|Optional\\b|Some\\b|Ok\\b|Err\\b|true\\b|false\\b)[A-Z][A-Za-z0-9_]*)\\b",
       "captures": {
         "1": { "name": "support.type.kai" }
       }
