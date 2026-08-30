@@ -2,7 +2,7 @@
   "name": "kai",
   "displayName": "Kai (kai-lang)",
   "description": "Language support for the Kai programming language: syntax highlighting (TextMate grammar matching the tree-sitter-kai grammar), language configuration, and file icons.",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "publisher": "kai-lang",
   "license": "MIT",
   "keywords": [

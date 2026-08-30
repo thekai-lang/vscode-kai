@@ -1,7 +1,7 @@
 {
   "name": "Kai",
   "scopeName": "source.kai",
-  "comment": "TextMate grammar for the Kai programming language. Mirrors the tree-sitter grammar (grammar.js) and queries/highlights.scm captures. Aligned with EBNF grammars.ebnf v0.0.1–v0.0.11.",
+  "comment": "TextMate grammar for the Kai programming language. Mirrors the tree-sitter grammar (grammar.js) and queries/highlights.scm captures. Aligned with EBNF grammars.ebnf v0.0.1–v0.0.12.",
   "patterns": [
     { "include": "#comment" },
     { "include": "#string" },
@@ -77,6 +77,10 @@
       "patterns": [
         { "include": "#comment" },
         {
+          "match": "\\b(as)\\b",
+          "name": "keyword.control.kai"
+        },
+        {
           "match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b",
           "name": "entity.name.namespace.kai"
         },
@@ -94,11 +98,36 @@
       }
     },
     "function-declaration": {
-      "match": "\\b(fn)\\s+([A-Za-z_][A-Za-z0-9_]*)\\b",
-      "captures": {
-        "1": { "name": "storage.type.function.kai" },
-        "2": { "name": "entity.name.function.kai" }
-      }
+      "begin": "\\b(fn)\\b",
+      "beginCaptures": {
+        "1": { "name": "storage.type.function.kai" }
+      },
+      "end": "\\{",
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.block.kai" }
+      },
+      "patterns": [
+        { "include": "#comment" },
+        {
+          "match": "([A-Z][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*)\\.([A-Za-z_][A-Za-z0-9_]*)\\s*(?=\\()",
+          "captures": {
+            "1": { "name": "support.type.kai" },
+            "2": { "name": "entity.name.function.kai" }
+          }
+        },
+        {
+          "match": "\\b([A-Za-z_][A-Za-z0-9_]*)\\s*(?=\\()",
+          "captures": {
+            "1": { "name": "entity.name.function.kai" }
+          }
+        },
+        {
+          "match": "(?<=:)\\s*([A-Z][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*|int32|int64|float64|bool|unit|string|int|float)\\b",
+          "captures": {
+            "1": { "name": "support.type.kai" }
+          }
+        }
+      ]
     },
     "result-type-args": {
       "match": "\\b(Result|Optional)\\s*<\\s*([A-Za-z_][A-Za-z0-9_]*)\\s*(?:,\\s*([A-Za-z_][A-Za-z0-9_]*)\\s*)?>",
@@ -213,14 +242,14 @@
       }
     },
     "return-type": {
-      "match": "->\\s*([A-Z][A-Za-z0-9_]*)\\b",
+      "match": "->\\s*([A-Z][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*)\\b",
       "captures": {
         "0": { "name": "keyword.operator.kai" },
         "1": { "name": "support.type.kai" }
       }
     },
     "type-name-in-use": {
-      "match": "(?<=:)\\s*((?!None\\b|Result\\b|Optional\\b|Some\\b|Ok\\b|Err\\b|true\\b|false\\b)[A-Z][A-Za-z0-9_]*)\\b",
+      "match": "(?<=:)\\s*((?!None\\b|Result\\b|Optional\\b|Some\\b|Ok\\b|Err\\b|true\\b|false\\b)[A-Z][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*)\\b",
       "captures": {
         "1": { "name": "support.type.kai" }
       }
